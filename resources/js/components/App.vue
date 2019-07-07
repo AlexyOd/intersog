@@ -2,33 +2,21 @@
 	
 	<div class="container-fluid " :class="{'loading':timeload}">
 		<div>
-			
-			
 			<el-container>
-				
 				<el-header class="custom-header">Dashboard</el-header>
 				<el-main class="custom-main">
-					
-					
 					<el-container>
-						
 						<el-header class="custom-header">SuperName</el-header>
 					</el-container>
 				</el-main>
-				
-				
 				<el-container>
 					<el-main class="custom-main">
 						<el-card class="box-card custom-card fullwidth ">
-							
 							<el-checkbox-group class="custom-checkbox-group" v-model="socselect">
 								<el-checkbox-button v-for="social in socials" :label="social" :key="social">
 									{{social}}
 								</el-checkbox-button>
 							</el-checkbox-group>
-							
-							
-							
 							<div class="unpadign">
 								<el-tabs class="custom-tabs" ref="tabs" v-model="tabactive" @tab-click="tabclick">
 									<template v-for="tab in tabs">
@@ -59,18 +47,11 @@
 									<card :tmedia="data.media" :rules="rules" :keyword="keywords" />
 								</el-tabs>
 							</div>
-							
-						
 						</el-card>
 					</el-main>
 				</el-container>
 			</el-container>
-		
-		
 		</div>
-		
-		<!--</transition-group>-->
-	
 	</div>
 </template>
 
@@ -173,17 +154,11 @@
                 this.keywords.push(word);
                 this.keyword = "";
                 this.$refs.keywordinput[0].getInput().value = "";
-
-
             }
-
-
         },
         components: {
             card
         }
-
-
     }
 </script>
 <style lang="scss">
