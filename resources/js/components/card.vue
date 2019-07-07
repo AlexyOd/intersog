@@ -1,56 +1,69 @@
 <template>
-	<el-row>
-		<template v-for="tcard in tmedia ">
-			
-			<el-col  :xs="24" :sm="12" :md="8" :xl="6" v-if="isSocial(tcard.social_network) && isKeyword(tcard.caption) && isTabactive(tcard) ">
-				<el-card class="box-card mcard">
-					<div class="mcard-header clearfix">
-						<div class="avatar">
-							<img :src="tcard.author_pic" @error="errorImg($event,'defAvatar')" alt="">
+	<div class="mcard-loop">
+		<div class="mcard-loop-top">
+			<p class="mcard-total">
+				  {{getCount()}}items total
+			</p>
+			<div class="mcard-pagination">
+				<el-pagination
+						background
+						layout="prev, pager, next"
+						:total="getCount()">
+				</el-pagination>
+			</div>
+		</div>
+		<el-row>
+			<template v-for="tcard in tmedia ">
+				<el-col :xs="24" :sm="12" :md="8" :xl="6" v-if="checkItem(tcard)">
+					<el-card class="box-card mcard">
+						<div class="mcard-header clearfix">
+							<div class="avatar">
+								<img :src="tcard.author_pic" @error="errorImg($event,'defAvatar')" alt="">
+							</div>
+							<div class="text">
+								<p class="mcard-name">
+									@{{tcard.author_username}}
+								</p>
+								<a class="mcard-link" :href="tcard.link"> {{tcard.social_network}} </a>
+							</div>
+						
 						</div>
-						<div class="text">
-							<p class="mcard-name">
-								@{{tcard.author_username}}
-							</p>
-							<a class="mcard-link" :href="tcard.link"> {{tcard.social_network}} </a>
+						<div class="mcard-content">
+							<div class="mcard-shape">
+								{{tcard.caption}}
+							</div>
+							<img :src="tcard.pic" @error="errorImg($event,'defpic')" alt="">
+						</div>
+						<div class="mcard-counter clearfix">
+							<div>
+								<p class="lable">
+									likes
+								</p>
+								<p class="counter">{{getRandoom()}}</p>
+							</div>
+							<div>
+								<p class="lable">
+									comments
+								</p>
+								<p class="counter">{{getRandoom()}}</p>
+							</div>
+						</div>
+						<div class="mcard-footer">
+							<button class="mcard-btn black"
+							        v-if="rules.tabactive !='rejected' " @click.stop="reject(tcard)">reject
+							</button>
+							<button class="mcard-btn blue"
+							        v-if="rules.tabactive !='approved' " @click.stop="approve(tcard)">approve
+							</button>
 						</div>
 					
-					</div>
-					<div class="mcard-content">
-						<div class="mcard-shape">
-							{{tcard.caption}}
-						</div>
-						<img :src="tcard.pic" @error="errorImg($event,'defpic')" alt="">
-					</div>
-					<div class="mcard-counter clearfix">
-						<div>
-							<p class="lable">
-								likes
-							</p>
-							<p class="counter">{{getRandoom()}}</p>
-						</div>
-						<div>
-							<p class="lable">
-								comments
-							</p>
-							<p class="counter">{{getRandoom()}}</p>
-						</div>
-					</div>
-					<div class="mcard-footer">
-						<button class="mcard-btn black"
-						v-if="rules.tabactive !='rejected' " @click.stop="reject(tcard)">reject</button>
-						<button class="mcard-btn blue"
-						v-if="rules.tabactive !='approved' " @click.stop="approve(tcard)">approve</button>
-					</div>
+					</el-card>
 				
-				</el-card>
-			
-			
-			</el-col>
-		
-		
-		</template>
-	</el-row>
+				
+				</el-col>
+			</template>
+		</el-row>
+	</div>
 
 
 </template>
@@ -64,75 +77,68 @@
             return {
                 defAvatar: '../img/defavatar.png',
                 defpic: '../img/noimage.jpg',
-	            /*footerbtn:['reject','approve',]*/
+              
+                /*footerbtn:['reject','approve',]*/
             }
         },
         methods: {
+         
+            errorImg(event, req) {
+                event.target.src = this[req];
+            },
+           
+            getRandoom() {
+                return Math.round(Math.random() * (1000 - 1) + 1);
+            },
+            reject(item) {
+                item.status = 'rejected';
+
+
+            },
+            approve(item) {
+                item.status = 'approved';
+
+
+            },
+            checkItem(item){
+                
+                let res = this.isTabactive(item) && this.isSocial(item.social_network) && this.isKeyword(item.caption);
+                
+                return res;
+            },
+            isTabactive(item) {
+                if (this.$props.rules.tabactive == 'panding') return true;
+                if (this.$props.rules.tabactive == item.status) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            },
+            isKeyword(caption) {
+                var self = this;
+                if (!this.keyword.length) return true;
+                return caption.split(' ').some((str) => {
+                    return self.keyword.some((search) => {
+                        return str.toLowerCase() == search.toLowerCase();
+                    })
+                })
+            },
             isSocial(snetwork) {
                 return this.rules.socselect.some((el) => {
                     return snetwork.toUpperCase() == el.toUpperCase();
                 });
             },
-            errorImg(event, req) {
-                event.target.src = this[req];
-            },
-            isKeyword(caption) {
-                var self = this;//regexp = new RegExp('[a-zA-Z]|[0-9]');
-                if (!this.keyword.length) return true;
-
-                return caption.split(' ').some((str) => {
-                    /*let strreg = regexp.test(str);*/
-
-                    return self.keyword.some((search) => {
-                        /*let searchreg = regexp.test(search);*/
-                        /*if(searchreg != strreg) return false;*/
-                        /*if(!searchreg)
-                        {
-                            return str.split('').some((e)=>{
-                                return search.split('').some((s)=>{
-                                    return e == s
-                                })
-                            })
-                        }*/
-
-                        return str.toLowerCase() == search.toLowerCase();
-                    })
-                })
-
-
-            },
-            getRandoom() {
-                return Math.round(Math.random() * (1000 - 1) + 1);
-            },
-            reject(item){
-                 item.status = 'rejected';
-                 console.log(item,this,item.status);
-                 this.$forceUpdate();
-                 
-            },
-            approve(item){
-                 item.status = 'approved';
-                 console.log(item,this,item.status);
-                 this.$forceUpdate();
-                 
-            },
-            isTabactive(item){
-                if(this.$props.rules.tabactive == 'panding') return true;
-                if(this.$props.rules.tabactive == item.status ){
-                    return true;
-                }
-                else{
-                    return false;
-                }
+            getCount(){
+                console.log(this);
             }
         },
-        created() {
-        
-	       
-			
-        },
-
-
+	    mounted(){
+     
+	    },
+	    computed:{
+     
+	    }
     }
 </script>
 
@@ -181,7 +187,7 @@
 		&-link {
 			text-decoration: underline;
 			font-size: 14px;
-			color:$--color-primary;
+			color: $--color-primary;
 			
 		}
 		&-content {
@@ -226,7 +232,6 @@
 			& > div {
 				flex: 1 1 50%;
 				
-				
 			}
 			.lable {
 				text-transform: uppercase;
@@ -242,18 +247,31 @@
 				
 			}
 		}
-		&-btn{
+		&-btn {
 			text-transform: uppercase;
 			font-size: 20px;
 			font-weight: bold;
 			background-color: transparent;
 			border: 0;
-			color:$specblack;
+			color: $specblack;
 			width: 100px;
 			margin-top: 10px;
-			&.blue{
+			&.blue {
 				color: $--color-primary;
 			}
+		}
+		&-loop {
+			background-color: $--background-color-base;
+			margin-left: -20px;
+			margin-right: -20px;
+			&-top{
+				padding: 5px 10px;
+				display: flex;
+				
+			}
+		}
+		&-pagination{
+			margin-left: auto;
 		}
 		
 	}

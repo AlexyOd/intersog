@@ -4273,6 +4273,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -4364,8 +4369,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log('build');
-                _context2.next = 3;
+                _context2.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getInfo').then(function (res) {
                   res.data.media.forEach(function (item) {
                     if (!item.hasOwnProperty('status')) {
@@ -4375,7 +4379,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.data = res.data;
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -4389,9 +4393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return callData;
     }(),
-    tabclick: function tabclick(tab, event) {
-      this.$forceUpdate();
-    },
+    tabclick: function tabclick(tab, event) {},
     remove: function remove(item) {
       this.keywords.splice(item, 1);
     },
@@ -4481,6 +4483,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['tmedia', 'rules', 'keyword'],
@@ -4493,49 +4508,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    isSocial: function isSocial(snetwork) {
-      return this.rules.socselect.some(function (el) {
-        return snetwork.toUpperCase() == el.toUpperCase();
-      });
-    },
     errorImg: function errorImg(event, req) {
       event.target.src = this[req];
-    },
-    isKeyword: function isKeyword(caption) {
-      var self = this; //regexp = new RegExp('[a-zA-Z]|[0-9]');
-
-      if (!this.keyword.length) return true;
-      return caption.split(' ').some(function (str) {
-        /*let strreg = regexp.test(str);*/
-        return self.keyword.some(function (search) {
-          /*let searchreg = regexp.test(search);*/
-
-          /*if(searchreg != strreg) return false;*/
-
-          /*if(!searchreg)
-          {
-              return str.split('').some((e)=>{
-                  return search.split('').some((s)=>{
-                      return e == s
-                  })
-              })
-          }*/
-          return str.toLowerCase() == search.toLowerCase();
-        });
-      });
     },
     getRandoom: function getRandoom() {
       return Math.round(Math.random() * (1000 - 1) + 1);
     },
     reject: function reject(item) {
       item.status = 'rejected';
-      console.log(item, this, item.status);
-      this.$forceUpdate();
     },
     approve: function approve(item) {
       item.status = 'approved';
-      console.log(item, this, item.status);
-      this.$forceUpdate();
+    },
+    checkItem: function checkItem(item) {
+      var res = this.isTabactive(item) && this.isSocial(item.social_network) && this.isKeyword(item.caption);
+      return res;
     },
     isTabactive: function isTabactive(item) {
       if (this.$props.rules.tabactive == 'panding') return true;
@@ -4545,9 +4532,27 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return false;
       }
+    },
+    isKeyword: function isKeyword(caption) {
+      var self = this;
+      if (!this.keyword.length) return true;
+      return caption.split(' ').some(function (str) {
+        return self.keyword.some(function (search) {
+          return str.toLowerCase() == search.toLowerCase();
+        });
+      });
+    },
+    isSocial: function isSocial(snetwork) {
+      return this.rules.socselect.some(function (el) {
+        return snetwork.toUpperCase() == el.toUpperCase();
+      });
+    },
+    getCount: function getCount() {
+      console.log(this);
     }
   },
-  created: function created() {}
+  mounted: function mounted() {},
+  computed: {}
 });
 
 /***/ }),
@@ -6405,7 +6410,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "/* Element Chalk Variables */\n/* Transition\n-------------------------- */\n/* Color\n-------------------------- */\n/* 53a8ff */\n/* 66b1ff */\n/* 79bbff */\n/* 8cc5ff */\n/* a0cfff */\n/* b3d8ff */\n/* c6e2ff */\n/* d9ecff */\n/* ecf5ff */\n/* Link\n-------------------------- */\n/* Border\n-------------------------- */\n/* Fill\n-------------------------- */\n/* Typography\n-------------------------- */\n/* Size\n-------------------------- */\n/* z-index\n-------------------------- */\n/* Disable base\n-------------------------- */\n/* Icon\n-------------------------- */\n/* Checkbox\n-------------------------- */\n/* Radio\n-------------------------- */\n/* Select\n-------------------------- */\n/* Alert\n-------------------------- */\n/* MessageBox\n-------------------------- */\n/* Message\n-------------------------- */\n/* Notification\n-------------------------- */\n/* Input\n-------------------------- */\n/* Cascader\n-------------------------- */\n/* Group\n-------------------------- */\n/* Tab\n-------------------------- */\n/* Button\n-------------------------- */\n/* cascader\n-------------------------- */\n/* Switch\n-------------------------- */\n/* Dialog\n-------------------------- */\n/* Table\n-------------------------- */\n/* Pagination\n-------------------------- */\n/* Popup\n-------------------------- */\n/* Popover\n-------------------------- */\n/* Tooltip\n-------------------------- */\n/* Tag\n-------------------------- */\n/* Tree\n-------------------------- */\n/* Dropdown\n-------------------------- */\n/* Badge\n-------------------------- */\n/* Card\n--------------------------*/\n/* Slider\n--------------------------*/\n/* Steps\n--------------------------*/\n/* Menu\n--------------------------*/\n/* Rate\n--------------------------*/\n/* DatePicker\n--------------------------*/\n/* Loading\n--------------------------*/\n/* Scrollbar\n--------------------------*/\n/* Carousel\n--------------------------*/\n/* Collapse\n--------------------------*/\n/* Transfer\n--------------------------*/\n/* Header\n  --------------------------*/\n/* Footer\n--------------------------*/\n/* Main\n--------------------------*/\n/* Timeline\n--------------------------*/\n/* Backtop\n--------------------------*/\n/* Link\n--------------------------*/\n/* Calendar\n--------------------------*/\n/* Avatar\n--------------------------*/\n/* Break-point\n--------------------------*/\n.posacenter, .mcard-content img, .mcard-header .avatar img {\n  position: absolute;\n  top: 0;\n  left: -100%;\n  right: -100%;\n  bottom: 0;\n  margin: auto;\n  height: 100%;\n  width: auto;\n}\n.mcard-header {\n  display: -webkit-box;\n  display: flex;\n}\n.mcard-header .avatar {\n  width: 50px;\n  height: 50px;\n  min-width: 50px;\n  border-radius: 50%;\n  position: relative;\n  overflow: hidden;\n}\n.mcard-header .text {\n  -webkit-box-flex: 1;\n          flex: 1 1 auto;\n  padding-left: 5px;\n}\n.mcard-name {\n  margin-bottom: 0;\n  font-weight: bold;\n  font-size: 14px;\n}\n.mcard-link {\n  text-decoration: underline;\n  font-size: 14px;\n  color: #409EFF;\n}\n.mcard-content {\n  position: relative;\n  overflow: hidden;\n  position: relative;\n  height: 420px;\n  margin: 10px;\n  margin-left: -20px;\n  margin-right: -20px;\n}\n.mcard-shape {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  background-color: rgba(154, 154, 154, 0.9);\n  z-index: 2;\n  padding: 20px;\n  text-transform: uppercase;\n  color: white;\n  overflow: auto;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.mcard-shape:hover {\n  opacity: 1;\n}\n.mcard-counter {\n  display: -webkit-box;\n  display: flex;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-left: -20px;\n  margin-right: -20px;\n  border-bottom: 1px solid #EBEEF5;\n}\n.mcard-counter > div {\n  -webkit-box-flex: 1;\n          flex: 1 1 50%;\n}\n.mcard-counter .lable {\n  text-transform: uppercase;\n  color: #a3a3a3;\n  font-size: 14px;\n  margin-bottom: 0;\n  font-weight: bold;\n}\n.mcard-counter .counter {\n  color: black;\n  font-size: 20px;\n  font-weight: bold;\n}\n.mcard-btn {\n  text-transform: uppercase;\n  font-size: 20px;\n  font-weight: bold;\n  background-color: transparent;\n  border: 0;\n  color: #212121;\n  width: 100px;\n  margin-top: 10px;\n}\n.mcard-btn.blue {\n  color: #409EFF;\n}", ""]);
+exports.push([module.i, "/* Element Chalk Variables */\n/* Transition\n-------------------------- */\n/* Color\n-------------------------- */\n/* 53a8ff */\n/* 66b1ff */\n/* 79bbff */\n/* 8cc5ff */\n/* a0cfff */\n/* b3d8ff */\n/* c6e2ff */\n/* d9ecff */\n/* ecf5ff */\n/* Link\n-------------------------- */\n/* Border\n-------------------------- */\n/* Fill\n-------------------------- */\n/* Typography\n-------------------------- */\n/* Size\n-------------------------- */\n/* z-index\n-------------------------- */\n/* Disable base\n-------------------------- */\n/* Icon\n-------------------------- */\n/* Checkbox\n-------------------------- */\n/* Radio\n-------------------------- */\n/* Select\n-------------------------- */\n/* Alert\n-------------------------- */\n/* MessageBox\n-------------------------- */\n/* Message\n-------------------------- */\n/* Notification\n-------------------------- */\n/* Input\n-------------------------- */\n/* Cascader\n-------------------------- */\n/* Group\n-------------------------- */\n/* Tab\n-------------------------- */\n/* Button\n-------------------------- */\n/* cascader\n-------------------------- */\n/* Switch\n-------------------------- */\n/* Dialog\n-------------------------- */\n/* Table\n-------------------------- */\n/* Pagination\n-------------------------- */\n/* Popup\n-------------------------- */\n/* Popover\n-------------------------- */\n/* Tooltip\n-------------------------- */\n/* Tag\n-------------------------- */\n/* Tree\n-------------------------- */\n/* Dropdown\n-------------------------- */\n/* Badge\n-------------------------- */\n/* Card\n--------------------------*/\n/* Slider\n--------------------------*/\n/* Steps\n--------------------------*/\n/* Menu\n--------------------------*/\n/* Rate\n--------------------------*/\n/* DatePicker\n--------------------------*/\n/* Loading\n--------------------------*/\n/* Scrollbar\n--------------------------*/\n/* Carousel\n--------------------------*/\n/* Collapse\n--------------------------*/\n/* Transfer\n--------------------------*/\n/* Header\n  --------------------------*/\n/* Footer\n--------------------------*/\n/* Main\n--------------------------*/\n/* Timeline\n--------------------------*/\n/* Backtop\n--------------------------*/\n/* Link\n--------------------------*/\n/* Calendar\n--------------------------*/\n/* Avatar\n--------------------------*/\n/* Break-point\n--------------------------*/\n.posacenter, .mcard-content img, .mcard-header .avatar img {\n  position: absolute;\n  top: 0;\n  left: -100%;\n  right: -100%;\n  bottom: 0;\n  margin: auto;\n  height: 100%;\n  width: auto;\n}\n.mcard-header {\n  display: -webkit-box;\n  display: flex;\n}\n.mcard-header .avatar {\n  width: 50px;\n  height: 50px;\n  min-width: 50px;\n  border-radius: 50%;\n  position: relative;\n  overflow: hidden;\n}\n.mcard-header .text {\n  -webkit-box-flex: 1;\n          flex: 1 1 auto;\n  padding-left: 5px;\n}\n.mcard-name {\n  margin-bottom: 0;\n  font-weight: bold;\n  font-size: 14px;\n}\n.mcard-link {\n  text-decoration: underline;\n  font-size: 14px;\n  color: #409EFF;\n}\n.mcard-content {\n  position: relative;\n  overflow: hidden;\n  position: relative;\n  height: 420px;\n  margin: 10px;\n  margin-left: -20px;\n  margin-right: -20px;\n}\n.mcard-shape {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  background-color: rgba(154, 154, 154, 0.9);\n  z-index: 2;\n  padding: 20px;\n  text-transform: uppercase;\n  color: white;\n  overflow: auto;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.mcard-shape:hover {\n  opacity: 1;\n}\n.mcard-counter {\n  display: -webkit-box;\n  display: flex;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-left: -20px;\n  margin-right: -20px;\n  border-bottom: 1px solid #EBEEF5;\n}\n.mcard-counter > div {\n  -webkit-box-flex: 1;\n          flex: 1 1 50%;\n}\n.mcard-counter .lable {\n  text-transform: uppercase;\n  color: #a3a3a3;\n  font-size: 14px;\n  margin-bottom: 0;\n  font-weight: bold;\n}\n.mcard-counter .counter {\n  color: black;\n  font-size: 20px;\n  font-weight: bold;\n}\n.mcard-btn {\n  text-transform: uppercase;\n  font-size: 20px;\n  font-weight: bold;\n  background-color: transparent;\n  border: 0;\n  color: #212121;\n  width: 100px;\n  margin-top: 10px;\n}\n.mcard-btn.blue {\n  color: #409EFF;\n}\n.mcard-loop {\n  background-color: #F5F7FA;\n  margin-left: -20px;\n  margin-right: -20px;\n}\n.mcard-loop-top {\n  padding: 5px 10px;\n  display: -webkit-box;\n  display: flex;\n}\n.mcard-pagination {\n  margin-left: auto;\n}", ""]);
 
 // exports
 
@@ -63933,19 +63938,18 @@ var render = function() {
                                                   )
                                                 ]
                                               )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _c("card", {
-                                            attrs: {
-                                              tmedia: _vm.data.media,
-                                              rules: _vm.rules,
-                                              keyword: _vm.keywords
-                                            }
-                                          })
-                                        ],
-                                        1
+                                            : _vm._e()
+                                        ]
                                       )
                                     ]
+                                  }),
+                                  _vm._v(" "),
+                                  _c("card", {
+                                    attrs: {
+                                      tmedia: _vm.data.media,
+                                      rules: _vm.rules,
+                                      keyword: _vm.keywords
+                                    }
                                   })
                                 ],
                                 2
@@ -63994,133 +63998,161 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "el-row",
+    "div",
+    { staticClass: "mcard-loop" },
     [
-      _vm._l(_vm.tmedia, function(tcard) {
-        return [
-          _vm.isSocial(tcard.social_network) &&
-          _vm.isKeyword(tcard.caption) &&
-          _vm.isTabactive(tcard)
-            ? _c(
-                "el-col",
-                { attrs: { xs: 24, sm: 12, md: 8, xl: 6 } },
-                [
-                  _c("el-card", { staticClass: "box-card mcard" }, [
-                    _c("div", { staticClass: "mcard-header clearfix" }, [
-                      _c("div", { staticClass: "avatar" }, [
-                        _c("img", {
-                          attrs: { src: tcard.author_pic, alt: "" },
-                          on: {
-                            error: function($event) {
-                              return _vm.errorImg($event, "defAvatar")
+      _c("div", { staticClass: "mcard-loop-top" }, [
+        _c("p", { staticClass: "mcard-total" }, [
+          _vm._v("\n\t\t\t  " + _vm._s(_vm.getCount()) + "items total\n\t\t")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "mcard-pagination" },
+          [
+            _c("el-pagination", {
+              attrs: {
+                background: "",
+                layout: "prev, pager, next",
+                total: _vm.getCount()
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        [
+          _vm._l(_vm.tmedia, function(tcard) {
+            return [
+              _vm.checkItem(tcard)
+                ? _c(
+                    "el-col",
+                    { attrs: { xs: 24, sm: 12, md: 8, xl: 6 } },
+                    [
+                      _c("el-card", { staticClass: "box-card mcard" }, [
+                        _c("div", { staticClass: "mcard-header clearfix" }, [
+                          _c("div", { staticClass: "avatar" }, [
+                            _c("img", {
+                              attrs: { src: tcard.author_pic, alt: "" },
+                              on: {
+                                error: function($event) {
+                                  return _vm.errorImg($event, "defAvatar")
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "text" }, [
+                            _c("p", { staticClass: "mcard-name" }, [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t@" +
+                                  _vm._s(tcard.author_username) +
+                                  "\n\t\t\t\t\t\t\t"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "mcard-link",
+                                attrs: { href: tcard.link }
+                              },
+                              [_vm._v(" " + _vm._s(tcard.social_network) + " ")]
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "mcard-content" }, [
+                          _c("div", { staticClass: "mcard-shape" }, [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t" +
+                                _vm._s(tcard.caption) +
+                                "\n\t\t\t\t\t\t"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("img", {
+                            attrs: { src: tcard.pic, alt: "" },
+                            on: {
+                              error: function($event) {
+                                return _vm.errorImg($event, "defpic")
+                              }
                             }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "text" }, [
-                        _c("p", { staticClass: "mcard-name" }, [
-                          _vm._v(
-                            "\n\t\t\t\t\t\t\t@" +
-                              _vm._s(tcard.author_username) +
-                              "\n\t\t\t\t\t\t"
-                          )
+                          })
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "mcard-link",
-                            attrs: { href: tcard.link }
-                          },
-                          [_vm._v(" " + _vm._s(tcard.social_network) + " ")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "mcard-content" }, [
-                      _c("div", { staticClass: "mcard-shape" }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t" +
-                            _vm._s(tcard.caption) +
-                            "\n\t\t\t\t\t"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("img", {
-                        attrs: { src: tcard.pic, alt: "" },
-                        on: {
-                          error: function($event) {
-                            return _vm.errorImg($event, "defpic")
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "mcard-counter clearfix" }, [
-                      _c("div", [
-                        _c("p", { staticClass: "lable" }, [
-                          _vm._v("\n\t\t\t\t\t\t\tlikes\n\t\t\t\t\t\t")
+                        _c("div", { staticClass: "mcard-counter clearfix" }, [
+                          _c("div", [
+                            _c("p", { staticClass: "lable" }, [
+                              _vm._v("\n\t\t\t\t\t\t\t\tlikes\n\t\t\t\t\t\t\t")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "counter" }, [
+                              _vm._v(_vm._s(_vm.getRandoom()))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c("p", { staticClass: "lable" }, [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\tcomments\n\t\t\t\t\t\t\t"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "counter" }, [
+                              _vm._v(_vm._s(_vm.getRandoom()))
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("p", { staticClass: "counter" }, [
-                          _vm._v(_vm._s(_vm.getRandoom()))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c("p", { staticClass: "lable" }, [
-                          _vm._v("\n\t\t\t\t\t\t\tcomments\n\t\t\t\t\t\t")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "counter" }, [
-                          _vm._v(_vm._s(_vm.getRandoom()))
+                        _c("div", { staticClass: "mcard-footer" }, [
+                          _vm.rules.tabactive != "rejected"
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "mcard-btn black",
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.reject(tcard)
+                                    }
+                                  }
+                                },
+                                [_vm._v("reject\n\t\t\t\t\t\t")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.rules.tabactive != "approved"
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "mcard-btn blue",
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.approve(tcard)
+                                    }
+                                  }
+                                },
+                                [_vm._v("approve\n\t\t\t\t\t\t")]
+                              )
+                            : _vm._e()
                         ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "mcard-footer" }, [
-                      _vm.rules.tabactive != "rejected"
-                        ? _c(
-                            "button",
-                            {
-                              staticClass: "mcard-btn black",
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.reject(tcard)
-                                }
-                              }
-                            },
-                            [_vm._v("reject")]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.rules.tabactive != "approved"
-                        ? _c(
-                            "button",
-                            {
-                              staticClass: "mcard-btn blue",
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.approve(tcard)
-                                }
-                              }
-                            },
-                            [_vm._v("approve")]
-                          )
-                        : _vm._e()
-                    ])
-                  ])
-                ],
-                1
-              )
-            : _vm._e()
-        ]
-      })
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ]
+          })
+        ],
+        2
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []

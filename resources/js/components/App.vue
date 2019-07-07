@@ -27,6 +27,8 @@
 								</el-checkbox-button>
 							</el-checkbox-group>
 							
+							
+							
 							<div class="unpadign">
 								<el-tabs class="custom-tabs" ref="tabs" v-model="tabactive" @tab-click="tabclick">
 									<template v-for="tab in tabs">
@@ -50,11 +52,14 @@
 													<el-button type="primary">FILTER</el-button>
 												</div>
 											</div>
-											<card :tmedia="data.media" :rules="rules" :keyword="keywords" />
+											
+											
 										</el-tab-pane>
 									</template>
+									<card :tmedia="data.media" :rules="rules" :keyword="keywords" />
 								</el-tabs>
 							</div>
+							
 						
 						</el-card>
 					</el-main>
@@ -140,8 +145,6 @@
         },
         methods: {
             callData: async function () {
-
-				console.log('build');
                 await axios.post('/getInfo')
                     .then(res => {
                         res.data.media.forEach((item) => {
@@ -154,8 +157,7 @@
                     });
             },
             tabclick(tab, event) {
-
-                this.$forceUpdate();
+	           
             },
             remove(item) {
                 this.keywords.splice(item, 1);
