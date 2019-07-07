@@ -4259,25 +4259,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4494,8 +4475,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['tmedia', 'rules', 'keyword'],
@@ -4548,11 +4527,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCount: function getCount() {
-      console.log(this);
+      if (!this.$props.tmedia) return false;
+      var counter = 0;
+      var self = this;
+      self.$props.tmedia.forEach(function (e) {
+        if (self.checkItem(e)) counter++;
+      });
+      return counter;
     }
-  },
-  mounted: function mounted() {},
-  computed: {}
+  }
 });
 
 /***/ }),
@@ -64003,7 +63986,9 @@ var render = function() {
     [
       _c("div", { staticClass: "mcard-loop-top" }, [
         _c("p", { staticClass: "mcard-total" }, [
-          _vm._v("\n\t\t\t  " + _vm._s(_vm.getCount()) + "items total\n\t\t")
+          _vm._v(
+            "\n\t\t\t  " + _vm._s(_vm.getCount() || 0) + " items total\n\t\t"
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -64014,7 +63999,7 @@ var render = function() {
               attrs: {
                 background: "",
                 layout: "prev, pager, next",
-                total: _vm.getCount()
+                total: _vm.getCount() || 0
               }
             })
           ],

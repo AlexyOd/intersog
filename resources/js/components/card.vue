@@ -2,13 +2,13 @@
 	<div class="mcard-loop">
 		<div class="mcard-loop-top">
 			<p class="mcard-total">
-				  {{getCount()}}items total
+				  {{getCount()||0}} items total
 			</p>
 			<div class="mcard-pagination">
 				<el-pagination
 						background
 						layout="prev, pager, next"
-						:total="getCount()">
+						:total="getCount()||0">
 				</el-pagination>
 			</div>
 		</div>
@@ -64,8 +64,6 @@
 			</template>
 		</el-row>
 	</div>
-
-
 </template>
 
 <script>
@@ -130,15 +128,17 @@
                 });
             },
             getCount(){
-                console.log(this);
+                if(!this.$props.tmedia) return false;
+                let counter =0;
+                const self=this;
+                self.$props.tmedia.forEach((e)=>{
+                    if(self.checkItem(e))counter++
+                });
+	            return counter;
             }
         },
-	    mounted(){
-     
-	    },
-	    computed:{
-     
-	    }
+	  
+	    
     }
 </script>
 
