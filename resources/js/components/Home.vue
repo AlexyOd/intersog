@@ -17,14 +17,7 @@
 						<el-checkbox-button v-for="social in socials" :label="social" :key="social">{{social}}
 						</el-checkbox-button>
 					</el-checkbox-group>
-					<div>
-						
-						<el-tabs ref="tabs" v-model="tabactive" @tab-click="tabclick">
-							<template v-for="tab in tabs">
-								<el-tab-pane :label="tab" :name="tab">{{tab}}</el-tab-pane>
-							</template>
-						</el-tabs>
-					</div>
+					
 				
 					
 					
