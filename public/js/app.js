@@ -63912,6 +63912,13 @@ var render = function() {
                                                         {
                                                           attrs: {
                                                             type: "primary"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.genKeywords()
+                                                            }
                                                           }
                                                         },
                                                         [_vm._v("FILTER")]

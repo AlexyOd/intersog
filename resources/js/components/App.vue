@@ -37,7 +37,7 @@
 													          v-model="keyword"
 													          v-on:keyup.native="ikeywordChange"></el-input>
 													
-													<el-button type="primary">FILTER</el-button>
+													<el-button type="primary" @click="genKeywords()">FILTER</el-button>
 												</div>
 											</div>
 											

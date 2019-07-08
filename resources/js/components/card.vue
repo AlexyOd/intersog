@@ -128,6 +128,7 @@
                 });
             },
             getCount(){
+                
                 if(!this.$props.tmedia) return false;
                 let counter =0;
                 const self=this;
