@@ -50,7 +50,7 @@
 						</div>
 						<div class="mcard-footer">
 							<button class="mcard-btn black"
-							        v-if="rules.tabactive !='rejected' " @click.stop="reject(tcard)">reject
+								        v-if="rules.tabactive !='rejected' " @click.stop="reject(tcard)">reject
 							</button>
 							<button class="mcard-btn blue"
 							        v-if="rules.tabactive !='approved' " @click.stop="approve(tcard)">approve
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    
 
     export default {
         props: ['tmedia', 'rules', 'keyword'],
@@ -84,7 +84,6 @@
             errorImg(event, req) {
                 event.target.src = this[req];
             },
-           
             getRandoom() {
                 return Math.round(Math.random() * (1000 - 1) + 1);
             },
@@ -95,8 +94,6 @@
             },
             approve(item) {
                 item.status = 'approved';
-
-
             },
             checkItem(item){
                 
@@ -138,8 +135,6 @@
 	            return counter;
             }
         },
-	  
-	    
     }
 </script>
 

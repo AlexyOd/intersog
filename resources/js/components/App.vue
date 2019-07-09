@@ -18,7 +18,7 @@
 								</el-checkbox-button>
 							</el-checkbox-group>
 							<div class="unpadign">
-								<el-tabs class="custom-tabs" ref="tabs" v-model="tabactive" @tab-click="tabclick">
+								<el-tabs class="custom-tabs" ref="tabs" v-model="tabactive" >
 									<template v-for="tab in tabs">
 										<el-tab-pane :label="tab" :name="tab">
 											
@@ -70,7 +70,6 @@
                 data: [],
                 keywords: [],
                 keyword: '',
-
                 socselect: ['instagram'],
                 socials: [
                     'instagram', 'youtube', 'facebook', 'twitter'
@@ -99,7 +98,6 @@
             }
         },
         created() {
-
             this.spinner = Loading.service({
                 //target:'',
                 body: true,
@@ -119,10 +117,7 @@
                     clearInterval(loadingTime)
                 }
             }, 100);
-           
             await this.callData();
-
-
         },
         methods: {
             callData: async function () {
@@ -134,12 +129,9 @@
                             }
                         });
                         this.data = res.data;
-                        
                     });
             },
-            tabclick(tab, event) {
-	           
-            },
+            
             remove(item) {
                 this.keywords.splice(item, 1);
             },
